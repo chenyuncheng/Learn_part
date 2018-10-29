@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wootion.cast.vehcert.repository.EnterpriseMapper">
+    <resultMap id="BaseResultMap" type="com.wootion.cast.vehcert.domain.Enterprise">
+    </resultMap>
+    <!--栏位信息 -->
+    <sql id="selectColumn"> m.*</sql>
+
+    <!-- 查询条件 -->
+    <sql id="base_where_sql">
+        <where>
+            <if test="enterpId != null and enterpId != ''">
+                and enterp_id =  #{ enterpId }
+            </if>
+            <if test="enterpCode != null and enterpCode != ''">
+                and enterp_code = #{ enterpCode }
+            </if>
+            <if test="factory != null and factory != ''">
+                and enterp_factory = #{ factory }
+            </if>
+        </where>
+    </sql>
+
+
+    <!--列表查询-->
+    <select id="findEnterprise" resultMap="BaseResultMap" parameterType="Object">
+        SELECT
+        <include refid="selectColumn"></include>
+        FROM t_enterprise m
+        <include refid="base_where_sql"></include>
+    </select>
+</mapper>
